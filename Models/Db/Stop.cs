@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZEntityFrameworkTest.Models.Db
 {
@@ -14,8 +9,6 @@ namespace ZEntityFrameworkTest.Models.Db
 
 		public int Id { get; set; }
 		public DateTime Timestamp { get; set; }
-		public string VehicleId { get; set; }
-		public DateTime ChangedTime { get; set; }
 		public virtual ICollection<StopProduct> Products { get; set; }
 
 		#endregion
@@ -23,29 +16,6 @@ namespace ZEntityFrameworkTest.Models.Db
 		public Stop()
 		{
 			Products = new List<StopProduct>();
-		}
-
-		[NotMapped]
-		public bool UsesVehicle
-		{
-			get { return ActualProducts.Any(product => product.InVehicle); }
-		}
-
-		[NotMapped]
-		public bool UsesTrailer
-		{
-			get { return ActualProducts.Any(product => product.InTrailer); }
-		}
-
-		[NotMapped]
-		public IEnumerable<StopProduct> ActualProducts
-		{
-			get { return Products.Where(product => product.DetailType == RecStopProduct.EDetailType.Actual); }
-		}
-
-		public override string ToString()
-		{
-			return Timestamp.ToString("MM-dd HH:mm");
 		}
 	}
 }

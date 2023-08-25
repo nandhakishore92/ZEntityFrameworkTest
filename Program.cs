@@ -13,8 +13,8 @@ namespace ZEntityFrameworkTest
 	{
 		static void Main(string[] args)
 		{
-			CreateTestData(DateTime.Now.AddDays(-120), "17067227", "18067504", "1965");
-			CreateTestData(DateTime.Now, "17067236", "17067103", "1965");
+			CreateTestData(DateTime.Now.AddDays(-120));
+			CreateTestData(DateTime.Now);
 
 			PrintTestDataInConsole();
 
@@ -27,38 +27,22 @@ namespace ZEntityFrameworkTest
 			Console.ReadKey();
 		}
 
-		private static void CreateTestData(DateTime timeStamp, string orderId, string orderId2, string vehicleId)
+		private static void CreateTestData(DateTime timeStamp)
 		{
 			using (RecContext db = new RecContext())
 			{
-				StopProduct product1B = new StopProduct()
-				{
-					DetailType = RecStopProduct.EDetailType.Actual,
-					Volume = -1000,
-					ProductId = "141",
-				};
+				StopProduct product1B = new StopProduct();
 				CustomerDelivery delivery1 = new CustomerDelivery()
 				{
 					Timestamp = timeStamp,
-					ChangedTime = timeStamp,
-					OrderId = orderId,
-					VehicleId = vehicleId,
 					Products = { product1B }
 				};
 				db.Stops.Add(delivery1);
 
-				StopProduct product2B = new StopProduct()
-				{
-					DetailType = RecStopProduct.EDetailType.Actual,
-					Volume = -1000,
-					ProductId = "203",
-				};
+				StopProduct product2B = new StopProduct();
 				CustomerDelivery delivery2 = new CustomerDelivery()
 				{
 					Timestamp = timeStamp,
-					ChangedTime = timeStamp,
-					OrderId = orderId2,
-					VehicleId = vehicleId,
 					Products = { product2B }
 				};
 				db.Stops.Add(delivery2);
@@ -86,7 +70,7 @@ namespace ZEntityFrameworkTest
 					List<CustomerDelivery> list = query.ToList();
 					int result = query.DeleteFromQuery(delegate (BulkOperation options)
 					{
-						options.InternalIsEntityFrameworkPlus = true;
+						options.InternalIsEntityFrameworkPlus = false;
 						options.BatchDeleteBuilder = null;
 					});
 
