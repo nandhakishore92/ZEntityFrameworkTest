@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Z.EntityFramework.Plus;
-using ZEntityFrameworkTest.Db;
 
 namespace ZEntityFrameworkTest
 {
