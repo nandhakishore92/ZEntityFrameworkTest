@@ -63,7 +63,6 @@
     <Compile Include="Models\Db\RecContext.cs" />
     <Compile Include="Models\Db\Stop.cs" />
     <Compile Include="Models\Db\StopProduct.cs" />
-    <Compile Include="Models\Db\TerminalRelease.cs" />
     <Compile Include="Models\RecRelease.cs" />
     <Compile Include="Models\RecStop.cs" />
     <Compile Include="Models\RecStopProduct.cs" />

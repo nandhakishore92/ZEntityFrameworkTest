@@ -13,8 +13,8 @@ namespace ZEntityFrameworkTest
 	{
 		static void Main(string[] args)
 		{
-			CreateTestData("73", "99", DateTime.Now.AddDays(-120), "17067227", "18067504", "1965");
-			CreateTestData("7654", "9999", DateTime.Now, "17067236", "17067103", "1965");
+			CreateTestData(DateTime.Now.AddDays(-120), "17067227", "18067504", "1965");
+			CreateTestData(DateTime.Now, "17067236", "17067103", "1965");
 
 			PrintTestDataInConsole();
 
@@ -27,43 +27,15 @@ namespace ZEntityFrameworkTest
 			Console.ReadKey();
 		}
 
-		private static void CreateTestData(string releaseNo, string bolNo, DateTime timeStamp, string orderId, string orderId2, string vehicleId)
+		private static void CreateTestData(DateTime timeStamp, string orderId, string orderId2, string vehicleId)
 		{
 			using (RecContext db = new RecContext())
 			{
-				TerminalRelease release = new TerminalRelease()
-				{
-					ReleaseNo = releaseNo,
-					BolNo = bolNo,
-					TerminalId = "CLYD",
-					TransporterId = "666685",
-					VehicleId = "1965",
-					Timestamp = timeStamp,
-					ChangedTime = timeStamp
-				};
-				StopProduct product1A = new StopProduct()
-				{
-					DetailType = RecStopProduct.EDetailType.Actual,
-					Volume = 1000,
-					ProductId = "141",
-					Release = release
-				};
-				StopProduct product2A = new StopProduct()
-				{
-					DetailType = RecStopProduct.EDetailType.Actual,
-					Volume = 1000,
-					ProductId = "203",
-					Release = release
-				};
-				release.Products = new List<StopProduct> { product1A, product2A };
-				db.Stops.Add(release);
-
 				StopProduct product1B = new StopProduct()
 				{
 					DetailType = RecStopProduct.EDetailType.Actual,
 					Volume = -1000,
 					ProductId = "141",
-					Release = release
 				};
 				CustomerDelivery delivery1 = new CustomerDelivery()
 				{
@@ -80,7 +52,6 @@ namespace ZEntityFrameworkTest
 					DetailType = RecStopProduct.EDetailType.Actual,
 					Volume = -1000,
 					ProductId = "203",
-					Release = release
 				};
 				CustomerDelivery delivery2 = new CustomerDelivery()
 				{

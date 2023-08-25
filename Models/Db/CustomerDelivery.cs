@@ -8,7 +8,7 @@ using System.Web;
 namespace ZEntityFrameworkTest.Models.Db
 {
 	[Table("CustomerDelivery")]
-	public class CustomerDelivery : Stop
+	public class CustomerDelivery: Stop
 	{
 		#region ORM
 		[Required]

@@ -21,10 +21,6 @@ namespace ZEntityFrameworkTest.Models.Db
 		public int? Compartment { get; set; }
 		public string Tank { get; set; }
 		public RecStopProduct.EDetailType DetailType { get; set; }
-
-		public virtual Stop Stop { get; set; }
-		public virtual TerminalRelease Release { get; set; }
-
 		#endregion
 
 		public StopProduct()

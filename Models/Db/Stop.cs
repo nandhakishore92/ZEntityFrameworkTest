@@ -15,16 +15,7 @@ namespace ZEntityFrameworkTest.Models.Db
 		public int Id { get; set; }
 		public DateTime Timestamp { get; set; }
 		public string VehicleId { get; set; }
-		public string TrailerId { get; set; }
-		public string DriverId { get; set; }
-		[MaxLength]
-		public string Comment { get; set; }
-		public string TripId { get; set; }
-		public string PartialTripId { get; set; }
-		public string ChangedUser { get; set; }
 		public DateTime ChangedTime { get; set; }
-		public string LastChangedUser { get; set; }
-		public DateTime? LastChangedTime { get; set; }
 		public virtual ICollection<StopProduct> Products { get; set; }
 
 		#endregion

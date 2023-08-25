@@ -22,16 +22,6 @@ namespace ZEntityFrameworkTest.Models.Db
 		public DbSet<Stop> Stops { get; set; }
 
 		[SpecializedEntity]
-		public IQueryable<TerminalRelease> TerminalReleases
-		{
-			get
-			{
-				return Stops
-					.OfType<TerminalRelease>();
-			}
-		}
-
-		[SpecializedEntity]
 		public IQueryable<CustomerDelivery> CustomerDeliveries
 		{
 			get
