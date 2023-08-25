@@ -62,7 +62,6 @@
     <Compile Include="Models\Db\CustomerDelivery.cs" />
     <Compile Include="Models\Db\RecContext.cs" />
     <Compile Include="Models\Db\Stop.cs" />
-    <Compile Include="Models\Db\StopProduct.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

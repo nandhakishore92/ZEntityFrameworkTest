@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZEntityFrameworkTest.Models.Db;
-using ZEntityFrameworkTest.Models;
 using Z.BulkOperations;
+using ZEntityFrameworkTest.Models.Db;
 
 namespace ZEntityFrameworkTest
 {
@@ -31,19 +28,15 @@ namespace ZEntityFrameworkTest
 		{
 			using (RecContext db = new RecContext())
 			{
-				StopProduct product1B = new StopProduct();
 				CustomerDelivery delivery1 = new CustomerDelivery()
 				{
 					Timestamp = timeStamp,
-					Products = { product1B }
 				};
 				db.Stops.Add(delivery1);
 
-				StopProduct product2B = new StopProduct();
 				CustomerDelivery delivery2 = new CustomerDelivery()
 				{
 					Timestamp = timeStamp,
-					Products = { product2B }
 				};
 				db.Stops.Add(delivery2);
 
@@ -70,7 +63,7 @@ namespace ZEntityFrameworkTest
 					List<CustomerDelivery> list = query.ToList();
 					int result = query.DeleteFromQuery(delegate (BulkOperation options)
 					{
-						options.InternalIsEntityFrameworkPlus = false;
+						options.InternalIsEntityFrameworkPlus = true;
 						options.BatchDeleteBuilder = null;
 					});
 
