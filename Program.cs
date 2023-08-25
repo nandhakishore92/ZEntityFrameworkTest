@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Z.BulkOperations;
-using ZEntityFrameworkTest.Models.Db;
+using Z.EntityFramework.Plus;
+using ZEntityFrameworkTest.Db;
 
 namespace ZEntityFrameworkTest
 {
@@ -10,65 +9,40 @@ namespace ZEntityFrameworkTest
 	{
 		static void Main(string[] args)
 		{
-			CreateTestData(DateTime.Now.AddDays(-120));
-			CreateTestData(DateTime.Now);
-
-			PrintTestDataInConsole();
+			CreateTestData();
 
 			DeleteTestData();
-
-			PrintTestDataInConsole();
 
 			DropDatabase();
 
 			Console.ReadKey();
 		}
 
-		private static void CreateTestData(DateTime timeStamp)
+		private static void CreateTestData()
 		{
-			using (RecContext db = new RecContext())
+			using (EntityContext db = new EntityContext())
 			{
-				CustomerDelivery delivery1 = new CustomerDelivery()
-				{
-					Timestamp = timeStamp,
-				};
-				db.Stops.Add(delivery1);
-
-				CustomerDelivery delivery2 = new CustomerDelivery()
-				{
-					Timestamp = timeStamp,
-				};
-				db.Stops.Add(delivery2);
-
+				Child delivery1 = new Child();
+				db.Parents.Add(delivery1);
 				db.SaveChanges();
 			}
-		}
-
-		private static void PrintTestDataInConsole()
-		{
-			using (RecContext db = new RecContext())
-				Console.WriteLine("Number of records available: {0}", db.CustomerDeliveries.Count());
 		}
 
 		private static void DeleteTestData()
 		{
 			try
 			{
-				using (RecContext db = new RecContext())
+				using (EntityContext db = new EntityContext())
 				{
-					DateTime maxDate = DateTime.Now.Date.AddDays(-90);
-					IQueryable<CustomerDelivery> query = db.CustomerDeliveries
-						.Where(row => row.Timestamp < maxDate);
+					int beforeDeleteCount = db.Children.Count();
+					Console.WriteLine("Number of records before delete: {0}", beforeDeleteCount);
 
-					List<CustomerDelivery> list = query.ToList();
-					int result = query.DeleteFromQuery(delegate (BulkOperation options)
-					{
-						options.InternalIsEntityFrameworkPlus = true;
-						options.BatchDeleteBuilder = null;
-					});
-
+					int result = db.Children.Delete();
 					db.SaveChanges();
 					Console.WriteLine("Number of records deleted: {0}", result);
+
+					int afterDeleteCount = db.Children.Count();
+					Console.WriteLine("Number of records after delete: {0}", afterDeleteCount);
 				}
 			}
 			catch (Exception ex)
@@ -79,7 +53,7 @@ namespace ZEntityFrameworkTest
 
 		private static void DropDatabase()
 		{
-			using (RecContext db = new RecContext())
+			using (EntityContext db = new EntityContext())
 			{
 				db.Database.Delete();
 			}

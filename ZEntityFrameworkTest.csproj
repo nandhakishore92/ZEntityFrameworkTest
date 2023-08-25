@@ -59,9 +59,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Db\CustomerDelivery.cs" />
-    <Compile Include="Models\Db\RecContext.cs" />
-    <Compile Include="Models\Db\Stop.cs" />
+    <Compile Include="Db\Child.cs" />
+    <Compile Include="Db\EntityContext.cs" />
+    <Compile Include="Db\Parent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
